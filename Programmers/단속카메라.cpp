@@ -21,11 +21,11 @@ int solution(vector<vector<int>> routes) {
 		route_out = routes.back()[1];
 		routes.pop_back();
 
-        // same camera available
+		// same camera available
 		if (route_in <= route_out_bound) {
 			route_out_bound = route_out_bound > route_out ? route_out : route_out_bound;
 		} else {
-            // need another camera
+			// need another camera
 			answer++;
 			route_out_bound = route_out;
 		}
