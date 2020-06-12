@@ -42,8 +42,8 @@ int solution(vector<vector<int>> jobs) {
 			pop_heap(waits.begin(), waits.end(), cmp_heap);
 			temp_job = waits.back();
 			waits.pop_back();
-			answer += time - temp_job[0] + temp_job[1];
 			time += temp_job[1];
+			answer += time - temp_job[0];
 			n_handled++;
 		} else {
 			// no jobs to be handled
