@@ -54,13 +54,13 @@ int solution(string name) {
 	}
 
 	if (counts.size() == 0) {
-        // no character changing needed, all is 'A'
+		// no character changing needed, all is 'A'
 		answer = 0;
 	} else if (counts.size() == 1) {
-        // only one character is not 'A'
+		// only one character is not 'A'
 		answer = min(counts.front().first, str_len - counts.front().first);
 	} else {
-        // some characters are not 'A'
+		// some characters are not 'A'
 
 		// go left
 		if (counts.front().first > 0)
@@ -75,7 +75,7 @@ int solution(string name) {
 		answer = min(answer, str_len - max_gap + min(max_gap_start, str_len - (max_gap_start + max_gap)));
 	}
 
-    // sum counts for all each character
+	// sum counts for all each character
 	for (i = 0; i < counts.size(); i++) {
 		answer += counts[i].second;
 	}
