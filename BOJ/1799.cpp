@@ -104,7 +104,7 @@ int main(void) {
 	}
 
 	// count all independent positions
-	collect_independents(i, j, r, c, b, answer)
+	collect_independents(i, j, r, c, b, answer);
 	answer += count_bishops(0, 0);
 	answer += count_bishops(0, 1);
 
