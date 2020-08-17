@@ -35,7 +35,7 @@ int main(void) {
 	// set position of apples
 	while (K--) {
 		cin >> r >> c;
-		map[r - 1][c - 1] = 1;
+		map[r - 1][c - 1] = APPLE;
 	}
 
 	// init snake
@@ -54,7 +54,7 @@ int main(void) {
 		if (L > 0) {
 			cin >> X >> C;
 		} else {
-			X = 100;
+			X = 100000000;
 		}
 
 		// go forward
