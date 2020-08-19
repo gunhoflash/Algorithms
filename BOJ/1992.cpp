@@ -31,7 +31,6 @@ string zip_video(int r, int c, int size) {
 }
 
 int main(void) {
-	char data;
 	int
 		i, j, // indexers
 		N; // size of paper
