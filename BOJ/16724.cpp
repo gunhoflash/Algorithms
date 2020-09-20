@@ -3,10 +3,12 @@
 
 using namespace std;
 
-vector<vector<pair<int, int>>> parent;
+typedef pair<int, int> Point;
 
-pair<int, int> get_parent(pair<int, int> point) {
-	pair<int, int> parent_point = parent[point.first][point.second];
+vector<vector<Point>> parent;
+
+Point get_parent(Point point) {
+	Point parent_point = parent[point.first][point.second];
 
 	if (parent_point == point) {
 		// this is root
@@ -18,9 +20,9 @@ pair<int, int> get_parent(pair<int, int> point) {
 }
 
 // merge and return the size
-void merge(pair<int, int> point_a, pair<int, int> point_b) {
-	pair<int, int> root_a = get_parent(point_a);
-	pair<int, int> root_b = get_parent(point_b);
+void merge(Point point_a, Point point_b) {
+	Point root_a = get_parent(point_a);
+	Point root_b = get_parent(point_b);
 
 	if (root_a != root_b) {
 		// merge root_b into root_a
@@ -43,7 +45,7 @@ int main(void) {
 	cin >> N >> M;
 
 	// init parent
-	parent.resize(N, vector<pair<int, int>>(M));
+	parent.resize(N, vector<Point>(M));
 	for (r = 0; r < N; r++) {
 		for (c = 0; c < M; c++) {
 			parent[r][c].first = r;
