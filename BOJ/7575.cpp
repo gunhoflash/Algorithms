@@ -39,7 +39,7 @@ bool has_pattern(vector<int> &program, vector<int> &pattern) {
 	// init {pi}
 	make_pattern_index(pattern, pi);
 
-		// start to find the pattern
+	// start to find the pattern
 	matched = 0;
 	for (i = 0; i < len_program; i++) {
 		while (matched > 0 && program[i] != pattern[matched]) {
