@@ -4,44 +4,47 @@
 
 using namespace std;
 
-string f(string A, string O, string B) {
+string f(const string &A, const string &O, const string &B) {
 	return A + B + O;
 }
 
-void check(stack<string> *alphabets, stack<string> *operators) {
+void check(stack<string> &alphabets, stack<string> &operators) {
 	bool checked;
-	string cs, a, o, b;
+	string cs, o, b;
 
-	while (true) {
+	checked = true;
+	while (checked) {
 		checked = false;
-		cs = alphabets->top();
-		alphabets->pop();
-		if (!operators->empty() && !alphabets->empty()) {
-			o = operators->top();
+		cs = alphabets.top();
+		alphabets.pop();
+		if (!operators.empty() && !alphabets.empty()) {
+			o = operators.top();
 			if (o == "*" || o == "/") {
-				operators->pop();
-				b = alphabets->top(); alphabets->pop();
-				alphabets->push(f(b, o, cs));
+				operators.pop();
+				b = alphabets.top();
+				alphabets.pop();
+				alphabets.push(f(b, o, cs));
 				checked = true;
 			}
 		}
-		if (!checked) {
-			alphabets->push(cs);
-			return;
-		}
 	}
+
+	alphabets.push(cs);
 }
 
 int main() {
-	stack<string> alphabets;
-	stack<string> operators;
+	stack<string>
+		alphabets,
+		operators;
 
-	string cs, input, a, o, b;
+	string cs, input;
 	int i, len;
 	char c;
 
-	cin >> input;
+	ios::sync_with_stdio(false);
+	cin.tie(NULL);
 
+	cin >> input;
 	input = "(" + input + ")";
 	len = input.length();
 
@@ -56,21 +59,19 @@ int main() {
 			case '(':
 				operators.push(cs);
 				break;
+
 			case ')':
 				cs = "";
 				while (operators.top() != "(") {
 					cs = alphabets.top() + operators.top() + cs;
-					alphabets.pop(); operators.pop();
+					alphabets.pop();
+					operators.pop();
 				}
 				cs = alphabets.top() + cs; alphabets.pop();
-				alphabets.push(cs);
 				operators.pop();
-				check(&alphabets, &operators);
-				break;
-
 			default:
 				alphabets.push(cs);
-				check(&alphabets, &operators);
+				check(alphabets, operators);
 				break;
 		}
 	}
