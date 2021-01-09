@@ -14,12 +14,7 @@ int main(void) {
 	int
 		i, // indexer
 		exp10, // 10 ^ n 
-		digit,
-		prev_digits,
-		next_digits,
-		N;
-
-	int
+		N,
 		n_digit[10] = { 0 };
 
 	// get the number
@@ -31,9 +26,9 @@ int main(void) {
 
 	// start from most significant digit (the first digit)
 	while (exp10 > 0) {
-		digit = (N / exp10) % 10;
-		prev_digits = N / exp10 / 10;
-		next_digits = N % exp10;
+		int digit = (N / exp10) % 10;
+		int prev_digits = N / exp10 / 10;
+		int next_digits = N % exp10;
 
 		// (max) / digit / next_digits
 		n_digit[digit] += next_digits + 1;

@@ -5,7 +5,7 @@ using namespace std;
 
 map<string, pair<string, int>> parent_and_size;
 
-string get_parent(string name) {
+string get_parent(const string &name) {
 	if (parent_and_size[name].first == name) {
 		// name is root
 		return name;
@@ -16,7 +16,7 @@ string get_parent(string name) {
 }
 
 // merge and return the size
-int merge(string a, string b) {
+int merge(const string &a, const string &b) {
 	string root_a = get_parent(a);
 	string root_b = get_parent(b);
 

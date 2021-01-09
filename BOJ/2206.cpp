@@ -8,10 +8,6 @@
 using namespace std;
 
 void calculate_distance(const pair<int, int> &start, int map[1000][1000], int N, int M) {
-	int
-		r, c,
-		path_length;
-
 	queue<pair<int, int>>
 		visiting_queue;
 
@@ -20,11 +16,11 @@ void calculate_distance(const pair<int, int> &start, int map[1000][1000], int N,
 	visiting_queue.push({ start.first, start.second });
 	while (!visiting_queue.empty()) {
 		// pop one
-		r = visiting_queue.front().first;
-		c = visiting_queue.front().second;
+		int r = visiting_queue.front().first;
+		int c = visiting_queue.front().second;
+		int path_length = map[r][c] + 1;
 		visiting_queue.pop();
 
-		path_length = map[r][c] + 1;
 
 		// top
 		if (r > 0) {
@@ -73,9 +69,6 @@ int main(void) {
 		distance_from_start[1000][1000],
 		distance_from_end[1000][1000];
 
-	char
-		ch;
-
 	ios::sync_with_stdio(false);
 	cin.tie(NULL);
 
@@ -83,6 +76,7 @@ int main(void) {
 	cin >> N >> M;
 	for (r = 0; r < N; r++) {
 		for (c = 0; c < M; c++) {
+			char ch;
 			cin >> ch;
 			distance_from_start[r][c] = (ch == '0' ? EMPTY : WALL);
 			distance_from_end[r][c]   = (ch == '0' ? EMPTY : WALL);

@@ -21,6 +21,7 @@ int main(void) {
 	}
 
 	// count the answer
+	answer = 0;
 	while (M--) {
 		cin >> str;
 		if (set.find(str) != set.end()) {

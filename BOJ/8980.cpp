@@ -22,11 +22,10 @@ bool compare_request(const Request &a, const Request &b) {
 
 int main(void) {
 	int
-		i, j, // indexers
+		i, // indexer
 		N, // the number of villages
 		C, // capacity of truck
 		M, // the number of request
-		from, to, max_deliverable,
 		delivered_boxes; // the number of delivered boxes
 
 	vector<int>
@@ -55,18 +54,18 @@ int main(void) {
 	// check all requests in order
 	delivered_boxes = 0;
 	for (i = 0; i < M; i++) {
-		from = requests[i].from;
-		to = requests[i].to;
-		max_deliverable = min(requests[i].n_box, C);
+		int from = requests[i].from;
+		int to = requests[i].to;
+		int max_deliverable = min(requests[i].n_box, C);
 
 		// check the maximum number of deliverable boxes
-		for (j = from; j < to; j++) {
+		for (int j = from; j < to; j++) {
 			max_deliverable = min(max_deliverable, carriable[j]);
 		}
 
 		// deliver some boxes
 		if (max_deliverable > 0) {
-			for (j = from; j < to; j++) {
+			for (int j = from; j < to; j++) {
 				carriable[j] -= max_deliverable;
 			}
 			delivered_boxes += max_deliverable;

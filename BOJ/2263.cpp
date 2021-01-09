@@ -12,9 +12,7 @@ int main(void) {
 	int
 		i, j, // indexers
 		number, // number
-		n, // the number of numbers
-		index_start,
-		index_end;
+		n; // the number of numbers
 
 	vector<int>
 		inorder_index, // index 0 not used
@@ -45,8 +43,8 @@ int main(void) {
 	printing_stack.push({ 0, n - 1 });
 	while (!printing_stack.empty()) {
 		// pop one
-		index_start = printing_stack.top().first;
-		index_end = printing_stack.top().second;
+		int index_start = printing_stack.top().first;
+		int index_end = printing_stack.top().second;
 		printing_stack.pop();
 
 		// print the local root
