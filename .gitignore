@@ -1,4 +1,6 @@
 .vscode/
 *.exe
 
+/node_modules
+
 test/
