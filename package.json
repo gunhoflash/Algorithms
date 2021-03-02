@@ -1,0 +1,27 @@
+{
+  "name": "Algorithms",
+  "version": "1.0.0",
+  "description": "[![Codacy Badge](https://app.codacy.com/project/badge/Grade/597f89cfe9584f26b6cd8934b021359e)](https://www.codacy.com/gh/gunhoflash/Algorithms/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=gunhoflash/Algorithms&amp;utm_campaign=Badge_Grade)",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "^14.14.31"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gunhoflash/Algorithms.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gunhoflash/Algorithms/issues"
+  },
+  "homepage": "https://github.com/gunhoflash/Algorithms#readme"
+}
