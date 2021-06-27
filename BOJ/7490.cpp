@@ -8,6 +8,14 @@ enum Operator {
 
 using namespace std;
 
+inline int get_appended_operators(int operators, int op) {
+	return (operators << 2) | op;
+}
+
+inline int get_operator(int operators, int n, int N) {
+	return 0b11 & (operators >> ((N - n) * 2));
+}
+
 void print_expression(int N, int operators) {
 	for (int n = 1; n <= N; n++) {
 		cout << n;
@@ -28,10 +36,10 @@ int calculate(int N, int operators) {
 		prev_operator = PLUS;
 
 	// append '+' to the last
-	operators = (operators << 2) | PLUS;
+	operators = get_appended_operators(operators, PLUS);
 
 	for (int n = 1; n <= N; n++) {
-		int o = 0b11 & (operators >> ((N - n) * 2));
+		int o = get_operator(operators, n , N);
 		temp = temp * 10 + n;
 		if (o != SPACE) {
 			sum += (prev_operator == PLUS ? temp : -temp);
@@ -52,18 +60,16 @@ void test(int N, int now, int operators) {
 		return;
 	}
 
-	// prepare next selection
-	now++;
-	operators <<= 2;
+	// go next selection
 
 	// whitespace
-	test(N, now, operators | SPACE);
+	test(N, now + 1, get_appended_operators(operators, SPACE));
 
 	// plus
-	test(N, now, operators | PLUS);
+	test(N, now + 1, get_appended_operators(operators, PLUS));
 
 	// minus
-	test(N, now, operators | MINUS);
+	test(N, now + 1, get_appended_operators(operators, MINUS));
 }
 
 int main(void) {
