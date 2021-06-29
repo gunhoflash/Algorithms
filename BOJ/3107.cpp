@@ -23,14 +23,9 @@ int main(void) {
 	int n_shown_groups = 0;
 	bool is_group_found = false;
 	for (char c : IPv6_address) {
-		if (c == ':') {
-			if (is_group_found) {
-				n_shown_groups++;
-			}
-			is_group_found = false;
-		} else {
-			is_group_found = true;
-		}
+		if (c == ':' && is_group_found)
+			n_shown_groups++;
+		is_group_found = c != ':';
 	}
 
 	// revert all groups
