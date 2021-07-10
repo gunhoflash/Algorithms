@@ -16,6 +16,14 @@ bool is_aeiou(char c) {
 	}
 }
 
+int get_number_of_1(int bits, int length) {
+	int n = 0;
+	for (int i = 0; i < length; i++) {
+		n += (bits >> i) & 1;
+	}
+	return n;
+}
+
 int main(void) {
 	int L, C;
 	char c[15];
@@ -29,13 +37,8 @@ int main(void) {
 	sort(c, c + C);
 
 	for (int bits = (1 << C) - 1; bits > 0; bits--) {
-		int n_1 = 0;
-		for (int i = 0; i < C; i++) {
-			n_1 += ((bits >> i) & 1);
-		}
-
 		// length not matched
-		if (n_1 != L) continue;
+		if (get_number_of_1(bits, C) != L) continue;
 
 		// parse bits to string
 		int n_aeiou = 0;
