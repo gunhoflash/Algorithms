@@ -30,10 +30,10 @@ function infoToBit(language, tech, career, food) {
 }
 
 function initBitMap(bitMap) {
-  const languages = ['cpp', 'java', 'python', '-'];
-  const techs = ['backend', 'frontend', '-'];
-  const careers = ['junior', 'senior', '-'];
-  const foods = ['chicken', 'pizza', '-'];
+  const languages = ['cpp', 'java', 'python'];
+  const techs = ['backend', 'frontend'];
+  const careers = ['junior', 'senior'];
+  const foods = ['chicken', 'pizza'];
 
   languages.forEach(language => {
     techs.forEach(tech => {
