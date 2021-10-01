@@ -1,6 +1,4 @@
-const splitWithSize = (str, size) => [...str.matchAll(new RegExp(`(.{${size}})|.+$`, 'g'))];
-
-const populateFirst = ([v]) => v;
+const splitWithSize = (str, size) => [...str.matchAll(new RegExp(`(.{${size}})|.+$`, 'g'))].map(([str]) => str);
 
 const tokenize = str => ({ value: str, repeat: 1 });
 
@@ -36,12 +34,11 @@ function solution(str) {
 
   for (let size = Math.floor(str.length / 2); size; size--) {
     const length = pipe(
-      splitWithSize,
-      map(populateFirst),
-      map(tokenize),
-      mergeTokens,
-      map(getStringifiedTokenLength),
-      sum,
+      splitWithSize, // 문자열을 사이즈만큼 나눠서 배열로 만든다.
+      map(tokenize), // 각 문자열을 토큰화한다.
+      mergeTokens, // 인접한 같은 토큰을 합친다.
+      map(getStringifiedTokenLength), // 각 토큰을 문자열로 변환한 길이를 구한다
+      sum, // 각 문자열의 길이를 합친다.
     )(str, size);
     answer = Math.min(answer, length);
   }
