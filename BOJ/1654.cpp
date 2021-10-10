@@ -1,63 +1,43 @@
+#include <functional>
 #include <iostream>
 #include <vector>
 
 using namespace std;
 
-int main(void) {
-	int
-		answer,
-		sum,
-		temp,
-		i, // indexer
-		K, // the number of LAN cable have
-		N; // the number of LAN cable wanted
+int binary_search_max(long long min, long long max, function<bool(int)> f) {
+	while (min <= max) {
+		long long mid = (min + max) >> 1;
+		if (f((int)mid)) {
+			min = mid + 1;
+		} else {
+			max = mid - 1;
+		}
+	}
+	return max;
+}
 
-	long long
-		answer_upperbound,
-		answer_lowerbound;
+int main(void) {
+	int K, N;
 
 	vector<int> cables;
 	
 	ios::sync_with_stdio(false);
 	cin.tie(NULL);
 
-	// get data
+	// init array
 	cin >> K >> N;
 	cables.resize(K);
-	for (i = 0; i < K; i++) {
+	for (int i = 0; i < K; i++) {
 		cin >> cables[i];
 	}
 
-	// find the answer
-	answer_upperbound = 2147483647;
-	answer_lowerbound = 1;
-	while (true) {
-
-		sum = 0;
-		answer = (answer_upperbound + answer_lowerbound) / 2;
-
-		for (i = 0; i < K; i++) {
-			sum += cables[i] / answer;
+	int answer = binary_search_max(1, 2147483647, [&](int length) {
+		int sum = 0;
+		for (int cable : cables) {
+			sum += cable / length;
 		}
-
-		if (sum < N) {
-			answer_upperbound = answer - 1;
-		} else {
-			if (answer_upperbound == answer_lowerbound) {
-				break;
-			} else if (answer_upperbound == answer_lowerbound + 1) {
-				sum = 0;
-				for (i = 0; i < K; i++) {
-					sum += cables[i] / answer_upperbound;
-				}
-				if (sum >= N) answer = answer_upperbound;
-				else answer = answer_lowerbound;
-				break;
-			} else {
-				answer_lowerbound = answer;
-			}
-		}
-	}
+		return sum >= N;
+	});
 
 	// print the answer
 	cout << answer;
