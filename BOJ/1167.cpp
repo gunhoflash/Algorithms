@@ -1,3 +1,4 @@
+#include <climits>
 #include <iostream>
 #include <vector>
 
@@ -44,15 +45,28 @@ int main(void) {
 	// init all nodes (index 0 is dummy)
 	cin >> V;
 	nodes.resize(V + 1);
-
-	// construct tree
-	while (--V) {
-		int p, c, d;
-		cin >> p >> c >> d;
-		nodes[p].edges.emplace_back(Edge{c, d});
+	for (Node &node : nodes) {
+		node.all_children_visited = false;
+		node.max_distance_to_leaf = INT_MIN;
 	}
 
-	// start from the root node
+	while (V--) {
+		// get a node number
+		int v;
+		cin >> v;
+
+		// set adjacent edges
+		while (true) {
+			int to, distance;
+			cin >> to;
+			if (to == -1) break;
+			cin >> distance;
+			nodes[v].edges.emplace_back(Edge{to, distance});
+		}
+	}
+
+	// start from any node
+	// regard node 1 as root
 	visiting_stack.emplace_back(1);
 	while (!visiting_stack.empty()) {
 		Node& node = nodes[visiting_stack.back()];
@@ -60,9 +74,11 @@ int main(void) {
 		// check if children are visited
 		if (!node.all_children_visited) {
 			node.all_children_visited = true;
-			// visit children first
+			// visit others first
 			for (Edge& edge : node.edges) {
-				visiting_stack.emplace_back(edge.to);
+				if (!nodes[edge.to].all_children_visited) {
+					visiting_stack.emplace_back(edge.to);
+				}
 			}
 			continue;
 		}

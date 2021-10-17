@@ -1,73 +1,80 @@
-// preorder:  root - left  - right
-// inorder:   left - root  - right
-// postorder: left - right - root
-
 #include <iostream>
 #include <stack>
 #include <vector>
 
 using namespace std;
 
+struct Range {
+	int in_order_start;
+	int in_order_end;
+	int post_order_start;
+	int post_order_end;
+};
+
 int main(void) {
-	int
-		i, j, // indexers
-		number, // number
-		n; // the number of numbers
+	int n; // the number of numbers
 
 	vector<int>
-		inorder_index, // index 0 not used
-		postorder;
+		in_order_index, // index 0 not used
+		post_order;
 
-	stack<pair<int, int>>
-		printing_stack; // { start index, end index }
+	stack<Range> printing_stack;
 
 	ios::sync_with_stdio(false);
 	cin.tie(NULL);
 
 	// init
 	cin >> n;
-	inorder_index.resize(n + 1);
-	postorder.resize(n);
+	in_order_index.resize(n + 1);
+	post_order.resize(n);
 
-	// get inorder
-	for (i = 0; i < n; i++) {
-		cin >> number;
-		inorder_index[number] = i;
+	// get in-order
+	for (int i = 0; i < n; i++) {
+		int num;
+		cin >> num;
+		in_order_index[num] = i;
 	}
 
-	// get postorder
-	for (i = 0; i < n; i++) {
-		cin >> postorder[i];
+	// get post-order
+	for (int i = 0; i < n; i++) {
+		cin >> post_order[i];
 	}
 
-	printing_stack.push({ 0, n - 1 });
+	printing_stack.push({ 0, n - 1, 0, n - 1 });
 	while (!printing_stack.empty()) {
 		// pop one
-		int index_start = printing_stack.top().first;
-		int index_end = printing_stack.top().second;
+		Range &range = printing_stack.top();
+		int in_order_start = range.in_order_start;
+		int in_order_end = range.in_order_end;
+		int post_order_start = range.post_order_start;
+		int post_order_end = range.post_order_end;
 		printing_stack.pop();
 
+		int root = post_order[post_order_end];
+		int in_order_index_of_root = in_order_index[root];
+		int n_left = in_order_index_of_root - in_order_start;
+		int n_right = in_order_end - in_order_index_of_root;
+
 		// print the local root
-		cout << postorder[index_end] << ' ';
+		cout << root << ' ';
 
-		// divide left and right
-
-		// get inorder index of root
-		i = inorder_index[postorder[index_end]];
-
-		// find all the right
-		for (j = index_end - 1; j >= index_start; j--) {
-			if (inorder_index[postorder[j]] <= i) break;
+		 // push all rights
+		if (n_right > 0) {
+			printing_stack.push({
+				in_order_index_of_root + 1,
+				in_order_end,
+				post_order_start + n_left,
+				post_order_end - 1,
+			});
 		}
-
-		// print all the right
-		if (j + 1 <= index_end - 1) {
-			printing_stack.push({ j + 1, index_end - 1 });
-		}
-
-		// print all the left
-		if (j >= index_start) {
-			printing_stack.push({ index_start, j });
+		// push all lefts
+		if (n_left > 0) {
+			printing_stack.push({
+				in_order_start,
+				in_order_index_of_root - 1,
+				post_order_start,
+				post_order_start + n_left - 1,
+			});
 		}
 	}
 
