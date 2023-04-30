@@ -2,7 +2,6 @@
 *.exe
 
 /node_modules
-
-test/
+/test
 
 input.txt
